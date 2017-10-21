@@ -4,7 +4,7 @@ export default {
   input: 'src/main.js',
   name: 'ringingtones',
   output: {
-    file: 'dist/build.js',
+    file: 'docs/dist.js',
     format: 'umd'
   },
   plugins: [buble()]

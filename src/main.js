@@ -1,3 +1,11 @@
 export const ringEU = audioCtx => {
-  throw new Error('not implemented')
+
+  const oscillator = audioCtx.createOscillator()
+  const gainNode = audioCtx.createGain()
+
+  oscillator.connect(gainNode)
+
+  oscillator.start()
+
+  return gainNode
 }

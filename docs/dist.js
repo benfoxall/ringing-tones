@@ -5,7 +5,15 @@
 }(this, (function (exports) { 'use strict';
 
 var ringEU = function (audioCtx) {
-  throw new Error('not implemented')
+
+  var oscillator = audioCtx.createOscillator();
+  var gainNode = audioCtx.createGain();
+
+  oscillator.connect(gainNode);
+
+  oscillator.start();
+
+  return gainNode
 };
 
 exports.ringEU = ringEU;

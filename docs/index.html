@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ringing Tones</title>
+  </head>
+  <body>
+    <h1>Ringing tones</h1>
+    <button data-tone="ringEU">
+      Ring EU
+    </button>
+    <script type="text/javascript" src="dist.js"></script>
+    <script type="text/javascript">
+
+      var audioCtx = new (window.AudioContext || window.webkitAudioContext)()
+
+      var name, playing
+      function toggle(_name) {
+        if(playing) {
+          playing.disconnect()
+
+          // if it's the same one, toggle off
+          if(_name == name)
+            return playing = name = null
+        }
+
+        playing = ringingtones[name = _name](audioCtx)
+
+        playing.connect(audioCtx.destination)
+      }
+
+
+      document.body.addEventListener('click', function(e) {
+        var tone = e.target.dataset.tone
+        if(tone && ringingtones[tone]) toggle(tone)
+      })
+    </script>
+  </body>
+</html>
