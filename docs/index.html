@@ -3,11 +3,19 @@
   <head>
     <meta charset="utf-8">
     <title>Ringing Tones</title>
+    <style media="screen">
+      body {font-family: sans-serif;}
+      button {display: block;}
+      .active {color: #08f;font-weight: 800}
+    </style>
   </head>
   <body>
     <h1>Ringing tones</h1>
     <button data-tone="ringEU">
       Europe
+    </button>
+    <button data-tone="ringJP">
+      Japan (todo)
     </button>
     <button data-tone="ringUS">
       North America
@@ -23,7 +31,7 @@
       var audioCtx = new (window.AudioContext || window.webkitAudioContext)()
 
       var name, playing
-      function toggle(_name) {
+      function toggle(_name, element) {
         if(playing) {
           playing.disconnect()
 
@@ -35,12 +43,15 @@
         playing = ringingtones[name = _name](audioCtx)
 
         playing.connect(audioCtx.destination)
+        element.className = 'active'
       }
 
 
+      var prior
       document.body.addEventListener('click', function(e) {
+        if(prior) prior.className = ''
         var tone = e.target.dataset.tone
-        if(tone && ringingtones[tone]) toggle(tone)
+        if(tone && ringingtones[tone]) toggle(tone, prior = e.target)
       })
     </script>
   </body>
